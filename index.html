@@ -1,302 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAL Notes - Academic Excellence</title>
-    <style>
-        :root {
-            --primary-blue: #0056b3;
-            --secondary-blue: #e7f1ff;
-            --accent-blue: #004494;
-            --white: #ffffff;
-            --text-dark: #333333;
-            --text-light: #666666;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IAL Notes</title>
+  <style>
+    /* ============================================
+       GLOBAL RESET & BASE STYLES
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e8f0fe 0%, #f5f8ff 50%, #dce8fc 100%);
+      min-height: 100vh;
+      color: #1a3a5c;
+    }
 
-        body {
-            background-color: #f8fafc;
-            color: var(--text-dark);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    /* ============================================
+       HEADER
+       ============================================ */
+    header {
+      background: linear-gradient(135deg, #1565c0 0%, #1e88e5 50%, #2196f3 100%);
+      padding: 20px 30px;
+      box-shadow: 0 4px 20px rgba(21, 101, 192, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        /* Navigation / Header */
-        header {
-            background-color: var(--white);
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    header h1 {
+      color: #ffffff;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
 
-        header h1 {
-            color: var(--primary-blue);
-            font-size: 2.5rem;
-            letter-spacing: -1px;
-        }
+    header p {
+      color: rgba(255, 255, 255, 0.85);
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 4px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
 
-        /* Container */
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            flex-grow: 1;
-        }
+    /* ============================================
+       MAIN CONTAINER
+       ============================================ */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
 
-        /* Home Section */
-        #home-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            animation: fadeIn 0.5s ease-in;
-        }
+    /* ============================================
+       SECTIONS (Home & Subject views)
+       ============================================ */
+    .section {
+      display: none;
+      animation: fadeSlideIn 0.45s ease-out forwards;
+    }
 
-        .subject-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-        }
+    .section.active {
+      display: block;
+    }
 
-        /* Subject Section (hidden by default) */
-        .subject-page {
-            display: none;
-            animation: slideIn 0.4s ease-out;
-        }
+    @keyframes fadeSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .unit-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
+    /* ============================================
+       HOME SECTION
+       ============================================ */
+    #home .home-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
 
-        .math-category {
-            margin-bottom: 2.5rem;
-        }
+    #home .home-title h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #1565c0;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 8px rgba(21, 101, 192, 0.15);
+    }
 
-        .math-category h3 {
-            color: var(--primary-blue);
-            border-bottom: 2px solid var(--secondary-blue);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
+    #home .home-title .icon {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
 
-        /* Buttons */
-        .btn {
-            background-color: var(--white);
-            border: 2px solid var(--primary-blue);
-            color: var(--primary-blue);
-            padding: 1.2rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow);
-        }
+    #home .home-title p {
+      font-size: 1.15rem;
+      color: #5a7da8;
+      font-weight: 400;
+    }
 
-        .btn:hover {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
+    /* ============================================
+       SUBJECT BUTTONS (Home Screen)
+       ============================================ */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
 
-        .btn-back {
-            background-color: var(--text-light);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            cursor: pointer;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .subject-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 22px 30px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .btn-back:hover {
-            background-color: var(--text-dark);
-        }
+    .subject-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
 
-        .btn-unit {
-            padding: 1rem;
-            font-size: 1rem;
-            background-color: var(--secondary-blue);
-        }
+    .subject-btn:hover::before {
+      left: 100%;
+    }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
+    .subject-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .subject-btn:active {
+      transform: translateY(-1px) scale(0.98);
+    }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .subject-btn .btn-icon {
+      font-size: 1.6rem;
+    }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.8rem; }
-            .subject-grid { grid-template-columns: 1fr 1fr; }
-        }
-    </style>
+    /* Individual subject button colors */
+    .btn-biology    { background: linear-gradient(135deg, #2e7d32, #43a047); }
+    .btn-physics    { background: linear-gradient(135deg, #1565c0, #1e88e5); }
+    .btn-chemistry  { background: linear-gradient(135deg, #e65100, #f57c00); }
+    .btn-maths      { background: linear-gradient(135deg, #6a1b9a, #8e24aa); }
+    .btn-psychology { background: linear-gradient(135deg, #c62828, #e53935); }
+
+    /* ============================================
+       SUBJECT SECTION (Unit View)
+       ============================================ */
+    .subject-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .subject-header .subject-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .subject-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1565c0;
+      margin-bottom: 6px;
+    }
+
+    .subject-header p {
+      color: #7a9bc5;
+      font-size: 1rem;
+    }
+
+    /* ============================================
+       BACK BUTTON
+       ============================================ */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1565c0;
+      background: #ffffff;
+      border: 2px solid #bbdefb;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 35px;
+      box-shadow: 0 3px 10px rgba(21, 101, 192, 0.08);
+    }
+
+    .back-btn:hover {
+      background: #1565c0;
+      color: #ffffff;
+      border-color: #1565c0;
+      box-shadow: 0 6px 20px rgba(21, 101, 192, 0.25);
+      transform: translateX(-3px);
+    }
+
+    /* ============================================
+       UNIT BUTTONS GRID
+       ============================================ */
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .unit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 24px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1565c0;
+      background: #ffffff;
+      border: 2px solid #bbdefb;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 12px rgba(21, 101, 192, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .unit-btn::after {
+      content: '↗';
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateX(-5px);
+    }
+
+    .unit-btn:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .unit-btn:hover {
+      background: linear-gradient(135deg, #1565c0, #1e88e5);
+      color: #ffffff;
+      border-color: #1565c0;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(21, 101, 192, 0.25);
+    }
+
+    .unit-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .unit-btn .unit-icon {
+      font-size: 1.3rem;
+    }
+
+    /* ============================================
+       MATHS CATEGORY LABELS
+       ============================================ */
+    .maths-category {
+      margin-bottom: 35px;
+    }
+
+    .maths-category h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+      border-bottom: 3px solid #bbdefb;
+      display: inline-block;
+    }
+
+    .maths-category h3 .cat-icon {
+      margin-right: 8px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #90b4d6;
+      font-size: 0.85rem;
+      border-top: 1px solid #d6e4f5;
+      margin-top: 40px;
+    }
+
+    footer span {
+      color: #1565c0;
+      font-weight: 600;
+    }
+
+    /* ============================================
+       RESPONSIVE TWEAKS
+       ============================================ */
+    @media (max-width: 600px) {
+      #home .home-title h2 {
+        font-size: 2.2rem;
+      }
+
+      .subject-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .units-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .subject-header h2 {
+        font-size: 1.7rem;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
+
+      .container {
+        padding: 25px 15px 40px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .units-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>IAL Notes</h1>
-    </header>
+  <!-- ============================================
+       HEADER
+       ============================================ -->
+  <header>
+    <h1>📘 IAL Notes</h1>
+    <p>Your International A-Level Study Companion</p>
+  </header>
 
-    <div class="container">
-        <!-- HOME SECTION -->
-        <section id="home-section">
-            <p style="color: var(--text-light); font-size: 1.1rem;">Select a subject to access study resources</p>
-            <div class="subject-grid">
-                <button class="btn" onclick="showSubject('biology')">Biology</button>
-                <button class="btn" onclick="showSubject('physics')">Physics</button>
-                <button class="btn" onclick="showSubject('chemistry')">Chemistry</button>
-                <button class="btn" onclick="showSubject('maths')">Maths</button>
-                <button class="btn" onclick="showSubject('psychology')">Psychology</button>
-            </div>
-        </section>
+  <!-- ============================================
+       MAIN CONTAINER
+       ============================================ -->
+  <div class="container">
 
-        <!-- SUBJECT TEMPLATE SECTION (Dynamic Content) -->
-        <section id="subject-view" class="subject-page">
-            <button class="btn-back" onclick="goHome()">← Back to Home</button>
-            <h2 id="subject-title" style="margin-bottom: 1rem; font-size: 2rem; color: var(--primary-blue);">Subject Name</h2>
-            
-            <!-- Grid for Bio, Phys, Chem, Psych -->
-            <div id="standard-units" class="unit-grid">
-                <!-- Buttons injected by JS -->
-            </div>
+    <!-- ==========================================
+         HOME SECTION — Subject Selection
+         ========================================== -->
+    <div id="home" class="section active">
+      <div class="home-title">
+        <span class="icon">🎓</span>
+        <h2>IAL Notes</h2>
+        <p>Select a subject to access your study notes</p>
+      </div>
 
-            <!-- Special Grid for Maths -->
-            <div id="maths-units" style="display: none;">
-                <div class="math-category">
-                    <h3>Pure Mathematics</h3>
-                    <div class="unit-grid" id="math-pure"></div>
-                </div>
-                <div class="math-category">
-                    <h3>Statistics</h3>
-                    <div class="unit-grid" id="math-stats"></div>
-                </div>
-                <div class="math-category">
-                    <h3>Mechanics</h3>
-                    <div class="unit-grid" id="math-mechanics"></div>
-                </div>
-            </div>
-        </section>
+      <div class="subject-grid">
+        <button class="subject-btn btn-biology" onclick="showSubject('biology')">
+          <span class="btn-icon">🧬</span> Biology
+        </button>
+        <button class="subject-btn btn-physics" onclick="showSubject('physics')">
+          <span class="btn-icon">⚛️</span> Physics
+        </button>
+        <button class="subject-btn btn-chemistry" onclick="showSubject('chemistry')">
+          <span class="btn-icon">🧪</span> Chemistry
+        </button>
+        <button class="subject-btn btn-maths" onclick="showSubject('maths')">
+          <span class="btn-icon">📐</span> Maths
+        </button>
+        <button class="subject-btn btn-psychology" onclick="showSubject('psychology')">
+          <span class="btn-icon">🧠</span> Psychology
+        </button>
+      </div>
     </div>
 
-    <footer>
-        &copy; 2023 IAL Notes - Dedicated to Academic Success
-    </footer>
+    <!-- ==========================================
+         BIOLOGY SECTION
+         ========================================== -->
+    <div id="biology" class="section">
+      <button class="back-btn" onclick="goHome()">← Back to Subjects</button>
+      <div class="subject-header">
+        <span class="subject-icon">🧬</span>
+        <h2>Biology</h2>
+        <p>Access your Biology unit notes on Google Drive</p>
+      </div>
+      <div class="units-grid">
+        <button class="unit-btn" onclick="openUnit('biology','unit1')">
+          <span class="unit-icon">📗</span> Unit 1
+        </button>
+        <button class="unit-btn" onclick="openUnit('biology','unit2')">
+          <span class="unit-icon">📗</span> Unit 2
+        </button>
+        <button class="unit-btn" onclick="openUnit('biology','unit3')">
+          <span class="unit-icon">📗</span> Unit 3
+        </button>
+        <button class="unit-btn" onclick="openUnit('biology','unit4')">
+          <span class="unit-icon">📗</span> Unit 4
+        </button>
+        <button class="unit-btn" onclick="openUnit('biology','unit5')">
+          <span class="unit-icon">📗</span> Unit 5
+        </button>
+        <button class="unit-btn" onclick="openUnit('biology','unit6')">
+          <span class="unit-icon">📗</span> Unit 6
+        </button>
+      </div>
+    </div>
 
-    <script>
-        const subjects = {
-            biology: { title: "Biology", units: 6 },
-            physics: { title: "Physics", units: 6 },
-            chemistry: { title: "Chemistry", units: 6 },
-            psychology: { title: "Psychology", units: 6 },
-            maths: {
-                title: "Mathematics",
-                pure: ["P1", "P2", "P3", "P4"],
-                stats: ["S1", "S2"],
-                mechanics: ["M1", "M2"]
-            }
-        };
+    <!-- ==========================================
+         PHYSICS SECTION
+         ========================================== -->
+    <div id="physics" class="section">
+      <button class="back-btn" onclick="goHome()">← Back to Subjects</button>
+      <div class="subject-header">
+        <span class="subject-icon">⚛️</span>
+        <h2>Physics</h2>
+        <p>Access your Physics unit notes on Google Drive</p>
+      </div>
+      <div class="units-grid">
+        <button class="unit-btn" onclick="openUnit('physics','unit1')">
+          <span class="unit-icon">📘</span> Unit 1
+        </button>
+        <button class="unit-btn" onclick="openUnit('physics','unit2')">
+          <span class="unit-icon">📘</span> Unit 2
+        </button>
+        <button class="unit-btn" onclick="openUnit('physics','unit3')">
+          <span class="unit-icon">📘</span> Unit 3
+        </button>
+        <button class="unit-btn" onclick="openUnit('physics','unit4')">
+          <span class="unit-icon">📘</span> Unit 4
+        </button>
+        <button class="unit-btn" onclick="openUnit('physics','unit5')">
+          <span class="unit-icon">📘</span> Unit 5
+        </button>
+        <button class="unit-btn" onclick="openUnit('physics','unit6')">
+          <span class="unit-icon">📘</span> Unit 6
+        </button>
+      </div>
+    </div>
 
-        function showSubject(subjectKey) {
-            const home = document.getElementById('home-section');
-            const view = document.getElementById('subject-view');
-            const title = document.getElementById('subject-title');
-            const standardUnits = document.getElementById('standard-units');
-            const mathsUnits = document.getElementById('maths-units');
+    <!-- ==========================================
+         CHEMISTRY SECTION
+         ========================================== -->
+    <div id="chemistry" class="section">
+      <button class="back-btn" onclick="goHome()">← Back to Subjects</button>
+      <div class="subject-header">
+        <span class="subject-icon">🧪</span>
+        <h2>Chemistry</h2>
+        <p>Access your Chemistry unit notes on Google Drive</p>
+      </div>
+      <div class="units-grid">
+        <button class="unit-btn" onclick="openUnit('chemistry','unit1')">
+          <span class="unit-icon">📙</span> Unit 1
+        </button>
+        <button class="unit-btn" onclick="openUnit('chemistry','unit2')">
+          <span class="unit-icon">📙</span> Unit 2
+        </button>
+        <button class="unit-btn" onclick="openUnit('chemistry','unit3')">
+          <span class="unit-icon">📙</span> Unit 3
+        </button>
+        <button class="unit-btn" onclick="openUnit('chemistry','unit4')">
+          <span class="unit-icon">📙</span> Unit 4
+        </button>
+        <button class="unit-btn" onclick="openUnit('chemistry','unit5')">
+          <span class="unit-icon">📙</span> Unit 5
+        </button>
+        <button class="unit-btn" onclick="openUnit('chemistry','unit6')">
+          <span class="unit-icon">📙</span> Unit 6
+        </button>
+      </div>
+    </div>
 
-            const data = subjects[subjectKey];
-            title.innerText = data.title;
+    <!-- ==========================================
+         MATHS SECTION
+         ========================================== -->
+    <div id="maths" class="section">
+      <button class="back-btn" onclick="goHome()">← Back to Subjects</button>
+      <div class="subject-header">
+        <span class="subject-icon">📐</span>
+        <h2>Maths</h2>
+        <p>Access your Maths unit notes on Google Drive</p>
+      </div>
 
-            // Clear previous buttons
-            standardUnits.innerHTML = '';
-            mathsUnits.style.display = 'none';
-            standardUnits.style.display = 'none';
+      <!-- Pure Mathematics -->
+      <div class="maths-category">
+        <h3><span class="cat-icon">📏</span>Pure Mathematics</h3>
+        <div class="units-grid">
+          <button class="unit-btn" onclick="openUnit('maths','p1')">
+            <span class="unit-icon">📕</span> P1
+          </button>
+          <button class="unit-btn" onclick="openUnit('maths','p2')">
+            <span class="unit-icon">📕</span> P2
+          </button>
+          <button class="unit-btn" onclick="openUnit('maths','p3')">
+            <span class="unit-icon">📕</span> P3
+          </button>
+          <button class="unit-btn" onclick="openUnit('maths','p4')">
+            <span class="unit-icon">📕</span> P4
+          </button>
+        </div>
+      </div>
 
-            if (subjectKey === 'maths') {
-                mathsUnits.style.display = 'block';
-                renderMathUnits(data);
-            } else {
-                standardUnits.style.display = 'grid';
-                for (let i = 1; i <= data.units; i++) {
-                    const btn = createUnitBtn(`Unit ${i}`, subjectKey);
-                    standardUnits.appendChild(btn);
-                }
-            }
+      <!-- Statistics -->
+      <div class="maths-category">
+        <h3><span class="cat-icon">📊</span>Statistics</h3>
+        <div class="units-grid">
+          <button class="unit-btn" onclick="openUnit('maths','s1')">
+            <span class="unit-icon">📕</span> S1
+          </button>
+          <button class="unit-btn" onclick="openUnit('maths','s2')">
+            <span class="unit-icon">📕</span> S2
+          </button>
+        </div>
+      </div>
 
-            home.style.display = 'none';
-            view.style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+      <!-- Mechanics -->
+      <div class="maths-category">
+        <h3><span class="cat-icon">⚙️</span>Mechanics</h3>
+        <div class="units-grid">
+          <button class="unit-btn" onclick="openUnit('maths','m1')">
+            <span class="unit-icon">📕</span> M1
+          </button>
+          <button class="unit-btn" onclick="openUnit('maths','m2')">
+            <span class="unit-icon">📕</span> M2
+          </button>
+        </div>
+      </div>
+    </div>
 
-        function renderMathUnits(data) {
-            const pureContainer = document.getElementById('math-pure');
-            const statsContainer = document.getElementById('math-stats');
-            const mechContainer = document.getElementById('math-mechanics');
+    <!-- ==========================================
+         PSYCHOLOGY SECTION
+         ========================================== -->
+    <div id="psychology" class="section">
+      <button class="back-btn" onclick="goHome()">← Back to Subjects</button>
+      <div class="subject-header">
+        <span class="subject-icon">🧠</span>
+        <h2>Psychology</h2>
+        <p>Access your Psychology unit notes on Google Drive</p>
+      </div>
+      <div class="units-grid">
+        <button class="unit-btn" onclick="openUnit('psychology','unit1')">
+          <span class="unit-icon">📕</span> Unit 1
+        </button>
+        <button class="unit-btn" onclick="openUnit('psychology','unit2')">
+          <span class="unit-icon">📕</span> Unit 2
+        </button>
+        <button class="unit-btn" onclick="openUnit('psychology','unit3')">
+          <span class="unit-icon">📕</span> Unit 3
+        </button>
+        <button class="unit-btn" onclick="openUnit('psychology','unit4')">
+          <span class="unit-icon">📕</span> Unit 4
+        </button>
+        <button class="unit-btn" onclick="openUnit('psychology','unit5')">
+          <span class="unit-icon">📕</span> Unit 5
+        </button>
+        <button class="unit-btn" onclick="openUnit('psychology','unit6')">
+          <span class="unit-icon">📕</span> Unit 6
+        </button>
+      </div>
+    </div>
 
-            pureContainer.innerHTML = '';
-            statsContainer.innerHTML = '';
-            mechContainer.innerHTML = '';
+  </div>
 
-            data.pure.forEach(unit => pureContainer.appendChild(createUnitBtn(unit, 'maths')));
-            data.stats.forEach(unit => statsContainer.appendChild(createUnitBtn(unit, 'maths')));
-            data.mechanics.forEach(unit => mechContainer.appendChild(createUnitBtn(unit, 'maths')));
-        }
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <p>© 2025 <span>IAL Notes</span> — Study smarter, not harder.</p>
+  </footer>
 
-        function createUnitBtn(label, subject) {
-            const btn = document.createElement('button');
-            btn.className = 'btn btn-unit';
-            btn.innerText = label;
-            btn.onclick = () => {
-                const url = `https://drive.google.com/drive/folders/1LsRSx-nIzW9V0w-XfFG-Iygph5koJd5l?usp=drive_link${subject.toUpperCase()}_${label.replace(' ', '_')}`;
-                window.open(url, '_blank');
-            };
-            return btn;
-        }
+  <!-- ============================================
+       JAVASCRIPT — Navigation & Drive Links
+       ============================================ -->
+  <script>
+    /* ============================================
+       DRIVE LINKS OBJECT
+       Every subject and every unit has its own
+       unique Google Drive link stored here.
+       Replace placeholder URLs with real ones.
+       ============================================ */
+    const driveLinks = {
+      biology: {
+        unit1: "https://drive.google.com/drive/folders/1zhcNg61OMWPz27tgAdEYgUrNxb2axlva?usp=drive_link",
+        unit2: "https://drive.google.com/drive/folders/1zhcNg61OMWPz27tgAdEYgUrNxb2axlva?usp=drive_link",
+        unit3: "https://drive.google.com/drive/folders/1zhcNg61OMWPz27tgAdEYgUrNxb2axlva?usp=drive_link",
+        unit4: "https://drive.google.com/drive/folders/1-fd8OrVlilTq-0awF3iCA8v_xywxRW6A?usp=drive_link",
+        unit5: "https://drive.google.com/drive/folders/1-fd8OrVlilTq-0awF3iCA8v_xywxRW6A?usp=drive_link",
+        unit6: "https://drive.google.com/drive/folders/1-fd8OrVlilTq-0awF3iCA8v_xywxRW6A?usp=drive_link"
+      },
+      physics: {
+        unit1: "https://drive.google.com/drive/folders/1zdctBrmBvbS6eK0pUOXiZuonyzrl_zHb?usp=drive_link",
+        unit2: "https://drive.google.com/drive/folders/1zdctBrmBvbS6eK0pUOXiZuonyzrl_zHb?usp=drive_link",
+        unit3: "https://drive.google.com/drive/folders/1zdctBrmBvbS6eK0pUOXiZuonyzrl_zHb?usp=drive_link",
+        unit4: "https://drive.google.com/drive/folders/1-Vc4VryLTIBMCm-pKuCgUQvkOrIaXPNr?usp=drive_link",
+        unit5: "https://drive.google.com/drive/folders/1-Vc4VryLTIBMCm-pKuCgUQvkOrIaXPNr?usp=drive_link",
+        unit6: "https://drive.google.com/drive/folders/1-Vc4VryLTIBMCm-pKuCgUQvkOrIaXPNr?usp=drive_link"
+      },
+      chemistry: {
+        unit1: "https://drive.google.com/drive/folders/1zhXCkIrzSPqCsDjBUEFkKjGmG2_rYTjn?usp=drive_link",
+        unit2: "https://drive.google.com/drive/folders/1zhXCkIrzSPqCsDjBUEFkKjGmG2_rYTjn?usp=drive_link",
+        unit3: "https://drive.google.com/drive/folders/1zhXCkIrzSPqCsDjBUEFkKjGmG2_rYTjn?usp=drive_link",
+        unit4: "https://drive.google.com/drive/folders/1-dnhbLlxwPCJsMmTek3sBUh-vZ9-9g-L?usp=drive_link",
+        unit5: "https://drive.google.com/drive/folders/1-dnhbLlxwPCJsMmTek3sBUh-vZ9-9g-L?usp=drive_link",
+        unit6: "https://drive.google.com/drive/folders/1-dnhbLlxwPCJsMmTek3sBUh-vZ9-9g-L?usp=drive_link"
+      },
+      maths: {
+        p1: "https://drive.google.com/drive/folders/1znSggOp_IbMbQQPpseEYGM4akyT_08EV?usp=drive_link",
+        p2: "https://drive.google.com/drive/folders/1znSggOp_IbMbQQPpseEYGM4akyT_08EV?usp=drive_link",
+        p3: "https://drive.google.com/drive/folders/107BEVqltvaHhkhs_AaNiQVpQhNtEQCix?usp=drive_link",
+        p4: "https://drive.google.com/drive/folders/107BEVqltvaHhkhs_AaNiQVpQhNtEQCix?usp=drive_link",
+        s1: "https://drive.google.com/drive/folders/1znSggOp_IbMbQQPpseEYGM4akyT_08EV?usp=drive_link",
+        s2: "https://drive.google.com/drive/folders/107BEVqltvaHhkhs_AaNiQVpQhNtEQCix?usp=drive_link",
+        m1: "https://drive.google.com/drive/folders/1znSggOp_IbMbQQPpseEYGM4akyT_08EV?usp=drive_link",
+        m2: "https://drive.google.com/drive/folders/107BEVqltvaHhkhs_AaNiQVpQhNtEQCix?usp=drive_link"
+      },
+      psychology: {
+        unit1: "https://drive.google.com/drive/folders/PSY_UNIT_1_FOLDER_ID",
+        unit2: "https://drive.google.com/drive/folders/PSY_UNIT_2_FOLDER_ID",
+        unit3: "https://drive.google.com/drive/folders/PSY_UNIT_3_FOLDER_ID",
+        unit4: "https://drive.google.com/drive/folders/PSY_UNIT_4_FOLDER_ID",
+        unit5: "https://drive.google.com/drive/folders/PSY_UNIT_5_FOLDER_ID",
+        unit6: "https://drive.google.com/drive/folders/PSY_UNIT_6_FOLDER_ID"
+      }
+    };
 
-        function goHome() {
-            document.getElementById('home-section').style.display = 'flex';
-            document.getElementById('subject-view').style.display = 'none';
-        }
-    </script>
+    /* ============================================
+       openUnit(subject, unit)
+       Looks up the correct unique link from
+       driveLinks and opens it in a new tab.
+       ============================================ */
+    function openUnit(subject, unit) {
+      // Look up the link for this specific subject and unit
+      var link = driveLinks[subject] && driveLinks[subject][unit];
+
+      if (link) {
+        window.open(link, "_blank");
+      } else {
+        alert("Link not found for " + subject + " - " + unit + ". Please check the driveLinks object.");
+      }
+    }
+
+    /* ============================================
+       showSubject(subjectId)
+       Hides the home section and shows the
+       selected subject section with animation.
+       ============================================ */
+    function showSubject(subjectId) {
+      // Hide all sections
+      var allSections = document.querySelectorAll('.section');
+      allSections.forEach(function(section) {
+        section.classList.remove('active');
+      });
+
+      // Show the selected subject section
+      var target = document.getElementById(subjectId);
+      if (target) {
+        target.classList.add('active');
+      }
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ============================================
+       goHome()
+       Hides all subject sections and shows
+       the home section.
+       ============================================ */
+    function goHome() {
+      // Hide all sections
+      var allSections = document.querySelectorAll('.section');
+      allSections.forEach(function(section) {
+        section.classList.remove('active');
+      });
+
+      // Show home section
+      document.getElementById('home').classList.add('active');
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
 </body>
 </html>
