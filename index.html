@@ -22,6 +22,67 @@
     }
 
     /* ============================================
+       LOGO POPUP / SPLASH MODAL
+       ============================================ */
+    #splash-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(21, 101, 192, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: splashFadeIn 0.5s ease forwards;
+      cursor: pointer;
+    }
+
+    #splash-overlay.fade-out {
+      animation: splashFadeOut 0.5s ease forwards;
+    }
+
+    @keyframes splashFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes splashFadeOut {
+      from { opacity: 1; }
+      to   { opacity: 0; pointer-events: none; }
+    }
+
+    .splash-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 44px 52px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(21, 101, 192, 0.3);
+      animation: splashCardPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      max-width: 360px;
+      width: 90%;
+    }
+
+    @keyframes splashCardPop {
+      from { transform: scale(0.75); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .splash-card img {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    .splash-card p {
+      margin-top: 16px;
+      color: #5a7da8;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* ============================================
        HEADER
        ============================================ */
     header {
@@ -91,6 +152,23 @@
       margin-bottom: 50px;
     }
 
+    /* Home logo */
+    .home-logo {
+      display: block;
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      border-radius: 20px;
+      margin: 0 auto 18px;
+      box-shadow: 0 8px 28px rgba(21, 101, 192, 0.18);
+      animation: logoFloat 3.5s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0);    }
+      50%       { transform: translateY(-7px); }
+    }
+
     #home .home-title h2 {
       font-size: 3rem;
       font-weight: 800;
@@ -98,12 +176,6 @@
       letter-spacing: 2px;
       margin-bottom: 10px;
       text-shadow: 0 2px 8px rgba(21, 101, 192, 0.15);
-    }
-
-    #home .home-title .icon {
-      font-size: 3.5rem;
-      margin-bottom: 15px;
-      display: block;
     }
 
     #home .home-title p {
@@ -175,7 +247,98 @@
     .btn-physics    { background: linear-gradient(135deg, #1565c0, #1e88e5); }
     .btn-chemistry  { background: linear-gradient(135deg, #e65100, #f57c00); }
     .btn-maths      { background: linear-gradient(135deg, #6a1b9a, #8e24aa); }
-    .btn-psychology { background: linear-gradient(135deg, #c62828, #e53935); }
+
+    /* ============================================
+       WHATSAPP COMMUNITY BUTTON
+       ============================================ */
+    .whatsapp-section {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 20px 48px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, #1b5e20, #2e7d32, #43a047);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 28px rgba(46, 125, 50, 0.40);
+      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .whatsapp-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      left: -100%;
+      transition: left 0.55s ease;
+    }
+
+    .whatsapp-btn:hover::before {
+      left: 100%;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 16px 42px rgba(46, 125, 50, 0.50);
+    }
+
+    .whatsapp-btn:active {
+      transform: translateY(-2px) scale(0.99);
+    }
+
+    .whatsapp-btn .wa-icon {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    /* Pulse ring effect */
+    .whatsapp-btn-wrap {
+      display: inline-block;
+      position: relative;
+    }
+
+    .whatsapp-btn-wrap::before,
+    .whatsapp-btn-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50px;
+      border: 2px solid rgba(67, 160, 71, 0.4);
+      animation: waPulse 2s ease-out infinite;
+      pointer-events: none;
+    }
+
+    .whatsapp-btn-wrap::after {
+      animation-delay: 1s;
+    }
+
+    @keyframes waPulse {
+      0%   { opacity: 1; transform: scale(1);    }
+      100% { opacity: 0; transform: scale(1.15); }
+    }
+
+    .whatsapp-tagline {
+      display: block;
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: #5a7da8;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
 
     /* ============================================
        SUBJECT SECTION (Unit View)
@@ -355,6 +518,16 @@
       .container {
         padding: 25px 15px 40px;
       }
+
+      .whatsapp-btn {
+        padding: 18px 32px;
+        font-size: 1.1rem;
+      }
+
+      .home-logo {
+        width: 100px;
+        height: 100px;
+      }
     }
 
     @media (max-width: 400px) {
@@ -365,6 +538,16 @@
   </style>
 </head>
 <body>
+
+  <!-- ============================================
+       SPLASH / LOGO POPUP
+       ============================================ -->
+  <div id="splash-overlay" onclick="dismissSplash()">
+    <div class="splash-card">
+      <img src="logo.png" alt="IAL Notes Logo" onerror="this.style.display='none'">
+      <p>Tap anywhere to continue</p>
+    </div>
+  </div>
 
   <!-- ============================================
        HEADER
@@ -384,7 +567,8 @@
          ========================================== -->
     <div id="home" class="section active">
       <div class="home-title">
-        <span class="icon">🎓</span>
+        <!-- Logo above title -->
+        <img src="logo.png" alt="IAL Notes Logo" class="home-logo" onerror="this.style.display='none'">
         <h2>IAL Notes</h2>
         <p>Select a subject to access your study notes</p>
       </div>
@@ -402,9 +586,30 @@
         <button class="subject-btn btn-maths" onclick="showSubject('maths')">
           <span class="btn-icon">📐</span> Maths
         </button>
-        <button class="subject-btn btn-psychology" onclick="showSubject('psychology')">
-          <span class="btn-icon">🧠</span> Psychology
-        </button>
+      </div>
+
+      <!-- WhatsApp Community Button -->
+      <div class="whatsapp-section">
+        <div class="whatsapp-btn-wrap">
+          <a
+            class="whatsapp-btn"
+            href="https://chat.whatsapp.com/ClT751wgXga8HOwcCaLFDM"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <!-- WhatsApp SVG icon -->
+            <svg class="wa-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#25D366"/>
+              <path d="M23.5 8.5A10.45 10.45 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.84.48 3.63 1.4 5.21L5.5 26.5l5.42-1.42A10.47 10.47 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5S21.8 5.5 16 5.5Z" fill="#25D366"/>
+              <path d="M23.5 8.5A10.45 10.45 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.84.48 3.63 1.4 5.21L5.5 26.5l5.42-1.42A10.47 10.47 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5S21.8 5.5 16 5.5Zm0 0" fill="none"/>
+              <path d="M21.07 18.56c-.28-.14-1.66-.82-1.92-.91-.26-.1-.44-.14-.63.14-.19.28-.73.91-.89 1.1-.16.19-.33.21-.61.07a7.7 7.7 0 0 1-2.27-1.4 8.5 8.5 0 0 1-1.57-1.95c-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.1-.19.05-.36-.02-.5-.07-.14-.63-1.52-.86-2.08-.23-.55-.46-.47-.63-.48h-.54c-.19 0-.49.07-.74.35-.26.28-1 .98-1 2.38s1.02 2.76 1.17 2.95c.14.19 2.01 3.07 4.87 4.3.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.12.55-.08 1.66-.68 1.9-1.33.23-.65.23-1.2.16-1.33-.07-.12-.26-.19-.54-.33Z" fill="#fff"/>
+            </svg>
+            Join WhatsApp Community
+          </a>
+        </div>
+        <span class="whatsapp-tagline">
+          Join to get latest resources, notes, and past papers instantly
+        </span>
       </div>
     </div>
 
@@ -561,38 +766,6 @@
       </div>
     </div>
 
-    <!-- ==========================================
-         PSYCHOLOGY SECTION
-         ========================================== -->
-    <div id="psychology" class="section">
-      <button class="back-btn" onclick="goHome()">← Back to Subjects</button>
-      <div class="subject-header">
-        <span class="subject-icon">🧠</span>
-        <h2>Psychology</h2>
-        <p>Access your Psychology unit notes on Google Drive</p>
-      </div>
-      <div class="units-grid">
-        <button class="unit-btn" onclick="openUnit('psychology','unit1')">
-          <span class="unit-icon">📕</span> Unit 1
-        </button>
-        <button class="unit-btn" onclick="openUnit('psychology','unit2')">
-          <span class="unit-icon">📕</span> Unit 2
-        </button>
-        <button class="unit-btn" onclick="openUnit('psychology','unit3')">
-          <span class="unit-icon">📕</span> Unit 3
-        </button>
-        <button class="unit-btn" onclick="openUnit('psychology','unit4')">
-          <span class="unit-icon">📕</span> Unit 4
-        </button>
-        <button class="unit-btn" onclick="openUnit('psychology','unit5')">
-          <span class="unit-icon">📕</span> Unit 5
-        </button>
-        <button class="unit-btn" onclick="openUnit('psychology','unit6')">
-          <span class="unit-icon">📕</span> Unit 6
-        </button>
-      </div>
-    </div>
-
   </div>
 
   <!-- ============================================
@@ -603,16 +776,31 @@
   </footer>
 
   <!-- ============================================
-       JAVASCRIPT — Navigation & Drive Links
+       JAVASCRIPT
        ============================================ -->
   <script>
     /* ============================================
-       DRIVE LINKS OBJECT
-       Every subject and every unit has its own
-       unique Google Drive link stored here.
-       Replace placeholder URLs with real ones.
+       SPLASH LOGIC — auto-dismiss after 2.5s
        ============================================ */
-    const driveLinks = {
+    var splashTimer = setTimeout(function() {
+      dismissSplash();
+    }, 2500);
+
+    function dismissSplash() {
+      clearTimeout(splashTimer);
+      var overlay = document.getElementById('splash-overlay');
+      if (!overlay) return;
+      overlay.classList.add('fade-out');
+      // Remove from DOM after animation
+      setTimeout(function() {
+        overlay.remove();
+      }, 500);
+    }
+
+    /* ============================================
+       DRIVE LINKS OBJECT
+       ============================================ */
+    var driveLinks = {
       biology: {
         unit1: "https://drive.google.com/drive/folders/1zhcNg61OMWPz27tgAdEYgUrNxb2axlva?usp=drive_link",
         unit2: "https://drive.google.com/drive/folders/1zhcNg61OMWPz27tgAdEYgUrNxb2axlva?usp=drive_link",
@@ -646,26 +834,11 @@
         s2: "https://drive.google.com/drive/folders/1Je2zQcb8WjbgrsQgVgSBeP9dQW4xdYRF?usp=drive_link",
         m1: "https://drive.google.com/drive/folders/1YspYZL66zHdYdXKga_CBIrL3KYC84I-7?usp=drive_link",
         m2: "https://drive.google.com/drive/folders/1qYgDXxQx55nQcGpi30BJFqWhcpcE10eG?usp=drive_link"
-      },
-      psychology: {
-        unit1: "https://drive.google.com/drive/folders/PSY_UNIT_1_FOLDER_ID",
-        unit2: "https://drive.google.com/drive/folders/PSY_UNIT_2_FOLDER_ID",
-        unit3: "https://drive.google.com/drive/folders/PSY_UNIT_3_FOLDER_ID",
-        unit4: "https://drive.google.com/drive/folders/PSY_UNIT_4_FOLDER_ID",
-        unit5: "https://drive.google.com/drive/folders/PSY_UNIT_5_FOLDER_ID",
-        unit6: "https://drive.google.com/drive/folders/PSY_UNIT_6_FOLDER_ID"
       }
     };
 
-    /* ============================================
-       openUnit(subject, unit)
-       Looks up the correct unique link from
-       driveLinks and opens it in a new tab.
-       ============================================ */
     function openUnit(subject, unit) {
-      // Look up the link for this specific subject and unit
       var link = driveLinks[subject] && driveLinks[subject][unit];
-
       if (link) {
         window.open(link, "_blank");
       } else {
@@ -673,44 +846,20 @@
       }
     }
 
-    /* ============================================
-       showSubject(subjectId)
-       Hides the home section and shows the
-       selected subject section with animation.
-       ============================================ */
     function showSubject(subjectId) {
-      // Hide all sections
-      var allSections = document.querySelectorAll('.section');
-      allSections.forEach(function(section) {
-        section.classList.remove('active');
+      document.querySelectorAll('.section').forEach(function(s) {
+        s.classList.remove('active');
       });
-
-      // Show the selected subject section
       var target = document.getElementById(subjectId);
-      if (target) {
-        target.classList.add('active');
-      }
-
-      // Scroll to top smoothly
+      if (target) target.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* ============================================
-       goHome()
-       Hides all subject sections and shows
-       the home section.
-       ============================================ */
     function goHome() {
-      // Hide all sections
-      var allSections = document.querySelectorAll('.section');
-      allSections.forEach(function(section) {
-        section.classList.remove('active');
+      document.querySelectorAll('.section').forEach(function(s) {
+        s.classList.remove('active');
       });
-
-      // Show home section
       document.getElementById('home').classList.add('active');
-
-      // Scroll to top smoothly
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
