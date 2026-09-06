@@ -248,6 +248,7 @@
     .btn-chemistry  { background: linear-gradient(135deg, #e65100, #f57c00); }
     .btn-maths      { background: linear-gradient(135deg, #6a1b9a, #8e24aa); }
     .btn-psychology { background: linear-gradient(135deg, #7b1fa2, #ec407a); }
+    .btn-pastpapers { background: linear-gradient(135deg, #00695c, #00acc1); }
 
     /* ============================================
        WHATSAPP COMMUNITY BUTTON
@@ -590,6 +591,9 @@
         <button class="subject-btn btn-psychology" onclick="showSubject('psychology')">
           <span class="btn-icon">🧠</span> Psychology
         </button>
+        <button class="subject-btn btn-pastpapers" onclick="showSubject('pastpapers')">
+          <span class="btn-icon">📄</span> Past Papers
+        </button>
       </div>
 
       <!-- WhatsApp Community Button -->
@@ -794,6 +798,32 @@
         </button>
       </div>
     </div>
+
+    <!-- ==========================================
+         PAST PAPERS SECTION
+         ========================================== -->
+    <div id="pastpapers" class="section">
+      <button class="back-btn" onclick="goHome()">← Back to Subjects</button>
+      <div class="subject-header">
+        <span class="subject-icon">📄</span>
+        <h2>Past Papers</h2>
+        <p>Access past papers by subject on Google Drive</p>
+      </div>
+      <div class="units-grid">
+        <button class="unit-btn" onclick="openPastPaper('biology')">
+          <span class="unit-icon">🧬</span> Biology
+        </button>
+        <button class="unit-btn" onclick="openPastPaper('physics')">
+          <span class="unit-icon">⚛️</span> Physics
+        </button>
+        <button class="unit-btn" onclick="openPastPaper('chemistry')">
+          <span class="unit-icon">🧪</span> Chemistry
+        </button>
+        <button class="unit-btn" onclick="openPastPaper('maths')">
+          <span class="unit-icon">📐</span> Maths
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ============================================
@@ -871,12 +901,28 @@
       }
     };
 
+    var pastPaperLinks = {
+      biology: "https://drive.google.com/drive/folders/1eqOkIW1BIMQ6y2K9iDkg2kSbUtJCwbIx?usp=drive_link",
+      physics: "https://drive.google.com/drive/folders/1d5lhDZWaWH1tsLz0v98fkgiSlrYKLgGz?usp=drive_link",
+      chemistry: "https://drive.google.com/drive/folders/18h4cuVkWuZuuS2OxAiyhahQIytQG2yuA?usp=drive_link",
+      maths: "https://drive.google.com/drive/folders/1eleiBxG6tvA-TVMIMYcRI0iKPW7HCgsw?usp=drive_link"
+    };
+
     function openUnit(subject, unit) {
       var link = driveLinks[subject] && driveLinks[subject][unit];
       if (link) {
         window.open(link, "_blank");
       } else {
         alert("Link not found for " + subject + " - " + unit + ". Please check the driveLinks object.");
+      }
+    }
+
+    function openPastPaper(subject) {
+      var link = pastPaperLinks[subject];
+      if (link) {
+        window.open(link, "_blank");
+      } else {
+        alert("Past paper link not found for " + subject + ".");
       }
     }
 
